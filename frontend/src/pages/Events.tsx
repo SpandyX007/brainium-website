@@ -1,6 +1,5 @@
 import { Calendar, MapPin, Clock, Star } from 'lucide-react';
 import { useState } from 'react';
-import RegistrationModal from '../components/RegistrationModal';
 import EventDetailsModal from '../components/EventDetailsModal';
 
 const eventsData = {
@@ -67,10 +66,13 @@ const eventsData = {
   ],
 };
 
-export default function Events() {
-  const [isRegistrationModalOpen, setIsRegistrationModalOpen] = useState(false);
+interface EventsProps {
+  onModalChange?: (isOpen: boolean) => void;
+  onNavigate?: (page: string) => void;
+}
+
+export default function Events({ onModalChange, onNavigate }: EventsProps) {
   const [isDetailsModalOpen, setIsDetailsModalOpen] = useState(false);
-  const [selectedEventTitle, setSelectedEventTitle] = useState('');
   const [selectedEventDetails, setSelectedEventDetails] = useState<typeof eventsData.upcoming[0] | null>(null);
 
   const formatDate = (dateString: string) => {
@@ -81,16 +83,16 @@ export default function Events() {
     });
   };
 
-  const openRegistrationModal = (eventTitle: string) => {
-    setSelectedEventTitle(eventTitle);
-    setIsRegistrationModalOpen(true);
-  };
-
   const openDetailsModal = (event: typeof eventsData.upcoming[0]) => {
     setSelectedEventDetails(event);
     setIsDetailsModalOpen(true);
+    onModalChange?.(true);
   };
 
+  const closeDetailsModal = () => {
+    setIsDetailsModalOpen(false);
+    onModalChange?.(false);
+  };
   return (
     <div className="min-h-screen pt-32 pb-20 px-4">
       <div className="container mx-auto max-w-7xl">
@@ -153,10 +155,10 @@ export default function Events() {
                 </div>
 
                 <button
-                  onClick={() => openRegistrationModal(eventsData.featured.title)}
-                  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 text-white font-semibold rounded-full hover:scale-105 transition-all duration-300 hover:shadow-xl hover:shadow-purple-500/50 w-fit"
+                  onClick={() => onNavigate?.('event-details')}
+                  className="px-8 py-4 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white font-semibold rounded-full transition-all duration-300 hover:scale-105 hover:shadow-xl hover:shadow-purple-500/50"
                 >
-                  Register Now
+                  View Details & Register
                 </button>
               </div>
             </div>
@@ -239,15 +241,9 @@ export default function Events() {
         </div>
       </div>
 
-      <RegistrationModal
-        isOpen={isRegistrationModalOpen}
-        onClose={() => setIsRegistrationModalOpen(false)}
-        eventTitle={selectedEventTitle}
-      />
-
       <EventDetailsModal
         isOpen={isDetailsModalOpen}
-        onClose={() => setIsDetailsModalOpen(false)}
+        onClose={closeDetailsModal}
         event={selectedEventDetails}
       />
     </div>
