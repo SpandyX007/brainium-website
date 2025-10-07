@@ -174,7 +174,7 @@ export default function Navbar({ currentPage, onNavigate }: NavbarProps) {
                 <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full p-0.5 group-hover:from-cyan-400 group-hover:via-purple-500 group-hover:to-pink-500 transition-all duration-300">
                   <div className="w-full h-full bg-black rounded-full p-0.5">
                     <img 
-                      src="brainiumlogo.jpeg" 
+                      src="./static/brainiumlogo.jpeg" 
                       alt="Brainium Logo"
                       className="w-full h-full object-cover rounded-full shadow-lg shadow-purple-500/50 group-hover:shadow-cyan-400/50 transition-all duration-300"
                     />
