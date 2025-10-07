@@ -123,7 +123,7 @@ export default function Home({ onNavigate }: HomeProps) {
               <div className="absolute inset-0 bg-gradient-to-r from-purple-500 via-pink-500 to-cyan-500 rounded-full p-1 animate-float">
                 <div className="w-full h-full bg-black rounded-full p-1">
                   <img
-                    src="brainiumlogo.jpeg"
+                    src="./static/brainiumlogo.jpeg"
                     alt="Brainium Logo"
                     className="w-full h-full object-cover rounded-full border-2 border-purple-400/50 shadow-2xl shadow-purple-500/50 hover:shadow-cyan-400/50 transition-all duration-500 hover:scale-110"
                   />
